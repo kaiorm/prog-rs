@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rede Super ao Vivo</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #iframe-container {
+      width: 35%;
+      height: 90%;
+      margin-right: 2%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body id="body">
+  <div id="iframe-container">
+    <iframe src="https://www.rede-super.tv.br/ao-vivo" allow="autoplay; fullscreen"></iframe>
+  </div>
+
+  <script>
+    const dias = [
+      'domingo', 'segunda', 'terca',
+      'quarta', 'quinta', 'sexta', 'sabado'
+    ];
+    const hoje = new Date().getDay();
+    const nomeDia = dias[hoje];
+    document.getElementById("body").style.backgroundImage = `url('backgrounds/${nomeDia}.jpg')`;
+  </script>
+</body>
+</html>
