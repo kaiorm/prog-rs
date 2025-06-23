@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rede Super ao Vivo</title>
+  <title>Rede Super Ao Vivo</title>
   <style>
     body {
       margin: 0;
@@ -11,59 +11,46 @@
       height: 100vh;
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
     }
 
-    .container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      color: #fff;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    #player-container {
+      width: 35%;
+      aspect-ratio: 16 / 9;
+      margin-right: 4%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      font-size: 2.5em;
-    }
-
-    a.botao {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      background: #FFD700;
-      color: #000;
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    a.botao:hover {
-      background: #e6c200;
     }
   </style>
 </head>
 <body id="body">
-  <div class="container">
-    <h1>Rede Super ao Vivo</h1>
-    <a class="botao" href="https://player.jmvstream.com/lvw/3T2FG1MmgoTP32R8A3BZu1JhF72XP0" target="_blank">
-      Assistir agora
-    </a>
+  <div id="player-container">
+    <iframe 
+      src="https://player.jmvstream.com/lvw/3T2FG1MmgoTP32R8A3BZu1JhF72XP0" 
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
   </div>
 
   <script>
     const dias = [
-      'domingo', 'segunda', 'terca',
-      'quarta', 'quinta', 'sexta', 'sabado'
+      'Domingo', 'Segunda', 'Terca',
+      'Quarta', 'Quinta', 'Sexta', 'Sabado'
     ];
     const hoje = new Date().getDay();
     const nomeDia = dias[hoje];
-    document.getElementById("body").style.backgroundImage = `url('backgrounds/${nomeDia}.png')`;
+    document.getElementById("body").style.backgroundImage = `url('${nomeDia}.png')`;
   </script>
 </body>
 </html>
