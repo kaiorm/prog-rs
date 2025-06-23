@@ -17,19 +17,20 @@
     }
 
     #iframe-container {
-      width: 35%;
-      height: 90%;
-      margin-right: 2%;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      border-radius: 10px;
-      overflow: hidden;
-    }
+  width: 35%;
+  aspect-ratio: 16 / 9;
+  margin-right: 2%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  align-self: flex-end;
+}
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
   </style>
 </head>
 <body id="body">
@@ -44,7 +45,7 @@
     ];
     const hoje = new Date().getDay();
     const nomeDia = dias[hoje];
-    document.getElementById("body").style.backgroundImage = `url('backgrounds/${nomeDia}.jpg')`;
+    document.getElementById("body").style.backgroundImage = `url('backgrounds/${nomeDia}.png')`;
   </script>
 </body>
 </html>
