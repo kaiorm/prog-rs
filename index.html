@@ -6,72 +6,56 @@
   <title>Rede Super Ao Vivo</title>
   <style>
     body {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       height: 100vh;
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       font-family: sans-serif;
-      background-color: #000; /* fallback */
+      background-color: #000;
     }
+
     #player-container {
       width: 35%;
-      aspect-ratio: 16/9;
+      aspect-ratio: 16 / 9;
       margin-right: 4%;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-      border-radius:12px;
-      overflow:hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      overflow: hidden;
     }
-    video {
-      width:100%; height:100%;
-      background:#000;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 <body id="body">
   <div id="player-container">
-    <video id="video" muted autoplay playsinline controls></video>
+    <iframe 
+      src="https://player.jmvstream.com/lvw/3T2FG1MmgoTP32R8A3BZu1JhF72XP0" 
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
     const dias = ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado'];
     const hoje = new Date().getDay();
     const nomeDia = dias[hoje];
-    const imagem = `${nomeDia}.png`;
-
-    // Aplica o fundo
-    const body = document.getElementById('body');
     const img = new Image();
-    img.src = imagem;
-    img.onload = function() {
-      body.style.backgroundImage = `url('${imagem}')`;
+    img.src = `${nomeDia}.png`;
+    img.onload = () => {
+      document.getElementById("body").style.backgroundImage = `url('${img.src}')`;
     };
-    img.onerror = function() {
-      console.error('Imagem de fundo não encontrada:', imagem);
+    img.onerror = () => {
+      console.warn("Imagem de fundo não encontrada:", img.src);
     };
-
-    // Carrega o player HLS
-    const video = document.getElementById('video');
-    const m3u8 = 'https://cdn.jmvstream.com/w/LVW-10930/LVW10930_Ow2P8BikOh/playlist.m3u8';
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(m3u8);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        video.play().catch(e => {
-          console.log("Autoplay bloqueado. Tentando forçar início...");
-        });
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = m3u8;
-      video.addEventListener('loadedmetadata', function () {
-        video.play();
-      });
-    }
   </script>
 </body>
 </html>
