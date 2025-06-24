@@ -14,10 +14,11 @@
       justify-content: flex-end;
       align-items: center;
       font-family: sans-serif;
+      background-color: #000; /* fallback */
     }
     #player-container {
-      position: relative;
-      width: 35%; aspect-ratio: 16/9;
+      width: 35%;
+      aspect-ratio: 16/9;
       margin-right: 4%;
       box-shadow: 0 0 20px rgba(0,0,0,0.6);
       border-radius:12px;
@@ -31,15 +32,28 @@
 </head>
 <body id="body">
   <div id="player-container">
-    <video id="video" muted autoplay playsinline></video>
+    <video id="video" muted autoplay playsinline controls></video>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
     const dias = ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado'];
     const hoje = new Date().getDay();
-    document.getElementById('body').style.backgroundImage = `url('${dias[hoje]}.png')`;
+    const nomeDia = dias[hoje];
+    const imagem = `${nomeDia}.png`;
 
+    // Aplica o fundo
+    const body = document.getElementById('body');
+    const img = new Image();
+    img.src = imagem;
+    img.onload = function() {
+      body.style.backgroundImage = `url('${imagem}')`;
+    };
+    img.onerror = function() {
+      console.error('Imagem de fundo não encontrada:', imagem);
+    };
+
+    // Carrega o player HLS
     const video = document.getElementById('video');
     const m3u8 = 'https://cdn.jmvstream.com/w/LVW-10930/LVW10930_Ow2P8BikOh/playlist.m3u8';
 
@@ -47,16 +61,14 @@
       const hls = new Hls();
       hls.loadSource(m3u8);
       hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.muted = true;
-        video.play();
-        video.pause();
-        video.muted = false;
-        video.play();
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play().catch(e => {
+          console.log("Autoplay bloqueado. Tentando forçar início...");
+        });
       });
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = m3u8;
-      video.addEventListener('loadedmetadata', () => {
+      video.addEventListener('loadedmetadata', function () {
         video.play();
       });
     }
