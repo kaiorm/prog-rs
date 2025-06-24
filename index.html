@@ -45,14 +45,19 @@
   </div>
 
   <script>
- const dias = ['domingo','segunda','terca','quarta','quinta','sexta','sabado'];
-const hoje = new Date().getDay();
-const nomeDia = dias[hoje];
-const imagem = `${nomeDia}.png`;
-document.getElementById("body").style.backgroundImage = `url('${imagem}')`;
+    const dias = ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado'];
+    const hoje = new Date().getDay();
+    const nomeDia = dias[hoje];
+    const caminhoImagem = `backgrounds/${nomeDia}.png`;
+
+    const body = document.getElementById("body");
+    const img = new Image();
+    img.src = caminhoImagem;
+    img.onload = () => {
+      body.style.backgroundImage = `url('${caminhoImagem}')`;
     };
     img.onerror = () => {
-      console.warn("Imagem de fundo não encontrada:", img.src);
+      console.error("⚠️ Imagem de fundo não encontrada:", caminhoImagem);
     };
   </script>
 </body>
