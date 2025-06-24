@@ -44,8 +44,17 @@
     </iframe>
   </div>
 
-  <script>
-    const dias = ['domingo','segunda','terca','quarta','quinta','sexta','sabado'];
+ <script>
   const caminhoImagem = 'backgrounds/segunda.png';
 
+  const body = document.getElementById("body");
+  const img = new Image();
+  img.src = caminhoImagem;
+  img.onload = () => {
+    body.style.backgroundImage = `url('${caminhoImagem}')`;
+  };
+  img.onerror = () => {
+    console.error("⚠️ Imagem de fundo não encontrada:", caminhoImagem);
+  };
+</script>
     const body = document.getEl
